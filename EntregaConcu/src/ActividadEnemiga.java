@@ -1,3 +1,5 @@
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 class ActividadEnemiga implements Runnable {
     private final IJuego juego;
@@ -10,6 +12,12 @@ class ActividadEnemiga implements Runnable {
 
     @Override
     public void run() {
-    	
+    	Random random = new Random();
+        try {
+            TimeUnit.MILLISECONDS.sleep(random.nextInt(5000) + 1000);
+            juego.generarEnemigo(tipoEnemigo);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
