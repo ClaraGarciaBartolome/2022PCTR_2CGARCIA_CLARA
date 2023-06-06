@@ -13,11 +13,31 @@ class ActividadEnemiga implements Runnable {
     @Override
     public void run() {
     	Random random = new Random();
-        try {
-            TimeUnit.MILLISECONDS.sleep(random.nextInt(5000) + 1000);
-            juego.generarEnemigo(tipoEnemigo);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    	for(int i = 0; i<repeticiones(); i++) {
+	        try {
+	            TimeUnit.MILLISECONDS.sleep(random.nextInt(5000) + 1000);
+	            juego.generarEnemigo(tipoEnemigo);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+    	}
     }
+    
+    private int repeticiones() { //N
+    	if (tipoEnemigo == 0) {
+    		return 4;
+    	}
+    	if (tipoEnemigo == 1) {
+    		return 3;
+    	}
+    	if (tipoEnemigo == 2) {
+    		return 2;
+    	}
+    	if (tipoEnemigo == 3) {
+    		return 1;
+    	}
+    	
+    	return 0;
+    }
+    
 }
