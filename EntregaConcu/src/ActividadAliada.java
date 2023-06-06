@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 class ActividadAliada implements Runnable {
     private final IJuego juego;
     private final int tipoEnemigo;
-    private static final int MAXIMOSALIADOS = ActividadEnemiga.MAXIMOSENEMIGOS;
 	
 
     public ActividadAliada( int tipoEnemigo, IJuego juego) {
@@ -15,7 +14,7 @@ class ActividadAliada implements Runnable {
     @Override
 	public void run() {
 	    Random random = new Random();
-	    for(int i = 0; i<M; i++) {
+	    for(int i = 0; i<repeticiones(); i++) {
 		    try {
 		        TimeUnit.MILLISECONDS.sleep(random.nextInt(5000) + 1000);
 		        juego.eliminarEnemigo(tipoEnemigo);
@@ -23,5 +22,22 @@ class ActividadAliada implements Runnable {
 		        e.printStackTrace();
 		    }
 	    }
+    }
+    
+    private int repeticiones() { //N
+    	if (tipoEnemigo == 0) {
+    		return 4;
+    	}
+    	if (tipoEnemigo == 1) {
+    		return 3;
+    	}
+    	if (tipoEnemigo == 2) {
+    		return 2;
+    	}
+    	if (tipoEnemigo == 3) {
+    		return 1;
+    	}
+    	
+    	return 0;
     }
 }
