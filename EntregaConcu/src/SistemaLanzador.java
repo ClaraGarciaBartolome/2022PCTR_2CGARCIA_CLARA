@@ -5,7 +5,7 @@ public class SistemaLanzador {
         int maxEnemigos = 20;
 
         //Inicializamos juego
-        Juego juego = new Juego(numTiposEnemigos, maxEnemigos);
+        IJuego juego = new Juego(numTiposEnemigos, maxEnemigos);
         
         System.out.println("	SIMULACIÓN VIDEOJUEGO	");
         
