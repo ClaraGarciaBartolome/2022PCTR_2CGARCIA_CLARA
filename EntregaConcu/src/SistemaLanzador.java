@@ -2,7 +2,7 @@ public class SistemaLanzador {
     
 	public static void main(String[] args) {
         int numTiposEnemigos = 4;
-        int maxEnemigos = 20;
+        int maxEnemigos = 10;
 
         //Inicializamos juego
         IJuego juego = new Juego(numTiposEnemigos, maxEnemigos);
