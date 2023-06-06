@@ -1,4 +1,5 @@
-import java.util.Hashtable;
+import java.util.*;
+
 
 
 
@@ -48,8 +49,7 @@ class Juego implements IJuego{
             contadoresEnemigosTipo.put(tipoEnemigo, contadoresEnemigosTipo.get(tipoEnemigo) - 1);
             contadoresEliminadosTipo.put(tipoEnemigo, contadoresEliminadosTipo.get(tipoEnemigo) + 1);
             this.contadorEnemigosTotales--;
-            
-            assert(contadorEnemigosTotales >= MINENEMIGOS&& contadorEnemigosTotales <= MAXENEMIGOS); // postcondicción -> no podrÃ¡ haber menos de 0 enemigos
+      
             imprimirInfo(tipoEnemigo, "Eliminado ");
             checkInvariante();
             notifyAll();
@@ -64,18 +64,18 @@ class Juego implements IJuego{
     }
 
 	private synchronized void comprobarAntesDeGenerar(int tipoEnemigo) {
-        if (contadorEnemigosTotales >= MINENEMIGOS && contadoresEnemigosTipo.get(tipoEnemigo) >= MAXENEMIGOS) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+			if (contadorEnemigosTotales > MINENEMIGOS || contadoresEnemigosTipo.get(tipoEnemigo) >= MAXENEMIGOS) {
+	            try {
+	                wait();
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	        }
+		}
 	
 	
 	private synchronized void comprobarAntesDeEliminar(int tipoEnemigo) {
-        if (contadorEnemigosTotales <= MINENEMIGOS || contadoresEnemigosTipo.get(tipoEnemigo) <= MINENEMIGOS) {
+        if (contadorEnemigosTotales < MINENEMIGOS || contadorEnemigosTotales > MAXENEMIGOS) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -83,6 +83,7 @@ class Juego implements IJuego{
             }
         }
     }
+
 	
     private void imprimirInfo(int tipoEnemigo, String string) {
         StringBuilder sb = new StringBuilder();
